@@ -7,20 +7,23 @@ var ProjectModule = core.modules.project = {
     },
     cls: {
         columnAfter: 'aftercontent',
-        columnExpanded: 'column--expanded'
-    }
+        columnExpanded: 'column--expanded',
+        dropdown: 'dropdown',
+        dropdownContainer: 'dropdown__container'
+    },
+    dataApi: '/api/wp-json/wp/v2/project/',
+    attachmentsApi: 'api//wp-json/wp/v2/media?parent=10&media_type=image',
+    activeDropdown: null
 };
 
-ProjectModule.buildTemplate = function (json) {
-    var _module = this;
-    var html = json.content.rendered;
-    // attachments:
-    // api//wp-json/wp/v2/media?parent=10&media_type=image
+ProjectModule.buildTemplate = function (data) {
+    var template = core.templates.project;
+    var html = template(data);
     console.log(html);
-    console.log(core.templates.project);
+
 };
 
-ProjectModule.loadProject = function (id) {
+ProjectModule.loadItem = function (id) {
     var _module = this;
 
     var success = function (data) {
@@ -41,70 +44,22 @@ ProjectModule.loadProject = function (id) {
         var request = new core.ajax();
         request.onSuccess = success;
         request.onError = error;
-        request.address = '/api/wp-json/wp/v2/project/' + id;
+        request.address = _module.dataApi + id;
         request.getData(request.address, request.onSuccess, request.onError);
     }
 }
 
-ProjectModule.observeViewport = function () {
-    var _module = this;
-    var viewport;
-
-    var timeoutFunction = function () {
-        _module.resolveViewport(viewport);
-    };
-
-    window.onresize = function () {
-        viewport = core.getWindowWidth();
-        clearTimeout(wait);
-        var wait = setTimeout(timeoutFunction, 500);
-    };
-};
-
-ProjectModule.resolveViewport = function (viewport) {
-    var _module = this;
-
-    if (viewport < 624) {
-        _module.updateColumns(1);
-    } else if (viewport <= 1024) {
-        _module.updateColumns(2);
-    } else if (viewport > 1024) {
-        _module.updateColumns(3);
-    }
-};
-
-ProjectModule.updateColumns = function (step) {
-    var _module = this;
-    var elements = _module.el.projectColumns;
-    var cls, element, index, clearedCls;
-
-    for (var i in elements) {
-        if (_module.el.projectColumns.hasOwnProperty(i)) {
-            index = parseInt(i) + 1;
-            element = elements[i];
-            element.classList.remove(_module.cls.columnAfter);
-            // core.removeClass(element, _module.cls.columnAfter);
-
-            if (index === step || index % step === 0) {
-                element.classList.add(_module.cls.columnAfter);
-                // cls = element.getAttribute('class');
-                // element.setAttribute('class', cls + _module.cls.columnAfter);
-            }
-        }
-    }
-};
-
-ProjectModule.selectColumn = function (item) {
+ProjectModule.selectItem = function (item) {
     var _module = this,
-        current = false;
+        allowToLoad = true;
 
     var parent = item.parentNode;
     var parentCls = parent.getAttribute('class');
     var currentCls = _module.cls.columnExpanded;
 
-    if (parentCls.indexOf(currentCls) != -1) {
+    if (parentCls.indexOf(currentCls) !== -1) {
         // clicked column is currently active - we do nothing!
-        current = true;
+        allowToLoad = false;
     } else {
         var columns = _module.el.projectColumns;
         var column;
@@ -119,26 +74,50 @@ ProjectModule.selectColumn = function (item) {
 
         //select current element by adding a class
         parent.classList.add(currentCls);
+
+        //set current dropdown height
+        _module.setDropdownHeight(parent);
     }
 
     //return boolean - for checking the state inside the bindItemEvents method
-    return current;
+    return allowToLoad;
+}
+
+ProjectModule.setDropdownHeight = function (parent) {
+    var _module = this;
+    var activeDropdown = _module.activeDropdown;
+
+    var dropdown = parent.getElementsByClassName(_module.cls.dropdown)[0];
+    var dropdownContainer = dropdown.getElementsByClassName(_module.cls.dropdownContainer)[0];
+    var height = core.pixelize(dropdownContainer.offsetHeight);
+
+    //if we have the dropdown already opened - reset its height
+    if (activeDropdown !== null) {
+        activeDropdown.style.maxHeight = '';
+    }
+
+    //set the max-height of dropdown
+    dropdown.style.maxHeight = height;
+
+    //share the opened dropdown with other methods
+    _module.activeDropdown = dropdown;
 }
 
 ProjectModule.bindItemEvents = function () {
     var _module = this;
     var items = _module.el.projectItems;
-    var id = null, idAttr;
+    var idAttr,
+        isToLoad;
 
     var clickFunction = function (e) {
         e.preventDefault();
-        idAttr = this.getAttribute('data-id');
 
-        if (idAttr) {
-            _module.selectColumn(this);
-            _module.loadProject(idAttr);
-        } else {
-            throw "data-id attribute does not exist";
+        idAttr = this.getAttribute('data-id');
+        isToLoad = _module.selectItem(this);
+
+        //check if data-id exists and clicked item is not active
+        if (idAttr && isToLoad) {
+            _module.loadItem(idAttr);
         }
     };
 
@@ -148,7 +127,5 @@ ProjectModule.bindItemEvents = function () {
 }
 
 ProjectModule.init = function (_module) {
-    _module.resolveViewport(_module.firstViewport, _module);
-    _module.observeViewport();
     _module.bindItemEvents();
 }.call(core, ProjectModule)
