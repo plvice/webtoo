@@ -69,8 +69,8 @@ gulp.task('templates', function(){
 gulp.task('compileJs', function() {
   return gulp.src(path.js.source)
     .pipe(plumber())
-    .pipe(concat('scripts.js'))
     .pipe(uglify())
+    .pipe(concat('scripts.js'))
     // .pipe(closure(['window', 'document']))
     .pipe(gulp.dest(path.js.dest));
 });
