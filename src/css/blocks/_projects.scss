@@ -1,0 +1,63 @@
+.projects {
+    padding: 40px 10px;
+}
+
+.project {
+    display: block;
+    position: relative;
+    font-size: 4rem;
+}
+
+.project__info {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: row;
+
+    background: rgba($primary, 0.4);
+
+    transform: scale(0);
+    transition: transform 0.2s ease-out;
+
+    .project:hover & {
+        transform: scale(1);
+    }
+
+    &-name {
+        font-size: 1.7em;
+        // font-weight: 100;
+        padding: 15px 20px;
+        // text-shadow: 0px 0px 6px #000;
+    }
+
+    &-type {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+
+.label {
+    display: inline-block;
+    padding: 8px 12px;
+    background: $primary;
+    color: $white;
+    font-weight: 400;
+    font-size: 0.9em;
+
+    &--red {
+        background: $red;
+    }
+
+    &--blue {
+        background: $blue;
+    }
+
+    &--black {
+        background: $black;
+    }
+}

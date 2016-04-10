@@ -1,0 +1,15 @@
+.ico-wave {
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0 0 10px;
+    fill: lighten($dark, 30%);
+    
+    transition: all 0.15s ease-out;
+
+    &:hover {
+        fill: $primary;
+
+    }
+}

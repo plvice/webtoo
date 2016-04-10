@@ -1,0 +1,87 @@
+.landscape {
+    width: 100%;
+    height: 100vh;
+    padding: 12% 0 40px 0;
+    display: block;
+    background: $primary;
+    position: relative;
+    overflow: hidden;
+
+    // mobile devices at portait orientation
+    @include breakpoint (portrait) {
+        @include breakpoint (small only) {
+            height: 65vh;
+        }
+        @include breakpoint (medium only) {
+            height: 50vh;
+        }
+    }
+
+    // mobile devices at landscape orientation
+    @include breakpoint (landscape) {
+        @include breakpoint (small only) {
+            padding-top: 8%;
+            padding-bottom: 8%;
+        }
+        @include breakpoint (medium only) {
+            height: 85vh;
+        }
+    }
+}
+
+.landscape__video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+$ridge1: #BFC5D5; //darkest
+$ridge2: #D0D5E3;
+$ridge3: #D8DCEA; //lightest
+
+.ridge {
+    width: 120%;
+    height: 100%;
+    position: absolute;
+    border-radius: 100%;
+}
+
+.ridge--1 {
+    bottom: -80%;
+    right: -70%;
+
+    z-index: 3;
+    background: $ridge1;
+
+    @include breakpoint (large) {
+        bottom: -65%;
+    }
+}
+
+.ridge--2 {
+    bottom: -90%;
+    right: -15%;
+
+    z-index: 2;
+    background: $ridge2;
+
+    @include breakpoint (large) {
+        bottom: -85%;
+        right: -30%;
+    }
+}
+
+.ridge--3 {
+    bottom: -80%;
+    left: -60%;
+
+    z-index: 1;
+    background: $ridge3;
+
+    @include breakpoint (large) {
+        bottom: -65%;
+    }
+}
