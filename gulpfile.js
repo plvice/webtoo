@@ -118,6 +118,7 @@ gulp.task('dist', function (cb) {
     gulp.start('compileCss');
     gulp.start('compileJs');
     gulp.start('templates');
+    gulp.start('vendor');
     gulp.start('images');
     gulp.start('static');
 });
