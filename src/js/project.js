@@ -6,7 +6,8 @@ var ProjectModule = core.modules.project = {
         projectItems: document.getElementsByClassName('project')
     },
     cls: {
-        columnAfter: ' aftercontent'
+        columnAfter: 'aftercontent',
+        columnExpanded: 'column--expanded'
     }
 };
 
@@ -81,15 +82,48 @@ ProjectModule.updateColumns = function (step) {
         if (_module.el.projectColumns.hasOwnProperty(i)) {
             index = parseInt(i) + 1;
             element = elements[i];
-            core.removeClass(element, _module.cls.columnAfter);
+            element.classList.remove(_module.cls.columnAfter);
+            // core.removeClass(element, _module.cls.columnAfter);
 
             if (index === step || index % step === 0) {
-                cls = element.getAttribute('class');
-                element.setAttribute('class', cls + _module.cls.columnAfter);
+                element.classList.add(_module.cls.columnAfter);
+                // cls = element.getAttribute('class');
+                // element.setAttribute('class', cls + _module.cls.columnAfter);
             }
         }
     }
 };
+
+ProjectModule.selectColumn = function (item) {
+    var _module = this,
+        current = false;
+
+    var parent = item.parentNode;
+    var parentCls = parent.getAttribute('class');
+    var currentCls = _module.cls.columnExpanded;
+
+    if (parentCls.indexOf(currentCls) != -1) {
+        // clicked column is currently active - we do nothing!
+        current = true;
+    } else {
+        var columns = _module.el.projectColumns;
+        var column;
+
+        //remove current class from columns
+        for(var i = 0; i < columns.length; i++) {
+            column = columns[i];
+            if (column.classList.contains(currentCls)) {
+                column.classList.remove(currentCls);
+            }
+        }
+
+        //select current element by adding a class
+        parent.classList.add(currentCls);
+    }
+
+    //return boolean - for checking the state inside the bindItemEvents method
+    return current;
+}
 
 ProjectModule.bindItemEvents = function () {
     var _module = this;
@@ -101,6 +135,7 @@ ProjectModule.bindItemEvents = function () {
         idAttr = this.getAttribute('data-id');
 
         if (idAttr) {
+            _module.selectColumn(this);
             _module.loadProject(idAttr);
         } else {
             throw "data-id attribute does not exist";
