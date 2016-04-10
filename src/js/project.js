@@ -1,16 +1,17 @@
 var ProjectModule = core.modules.project = {
     firstViewport: core.getWindowWidth(),
     el: {
-        projectsParent: document.getElementById('projects'),
-        projects: document.querySelectorAll('.projects .column'),
-        projectItem: document.getElementsByClassName('project')
+        projectsContainer: document.getElementById('projects'),
+        projectColumns: document.querySelectorAll('.projects .column'),
+        projectItems: document.getElementsByClassName('project')
     },
     cls: {
         columnAfter: ' aftercontent'
     }
 };
 
-ProjectModule.buildTemplate = function (root, module, json) {
+ProjectModule.buildTemplate = function (json) {
+    var _module = this;
     var html = json.content.rendered;
     // attachments:
     // api//wp-json/wp/v2/media?parent=10&media_type=image
@@ -18,14 +19,15 @@ ProjectModule.buildTemplate = function (root, module, json) {
     console.log(core.templates.project);
 };
 
-ProjectModule.loadProject = function (root, module, id) {
+ProjectModule.loadProject = function (id) {
+    var _module = this;
 
     var success = function (data) {
         var json = data.responseText;
 
         if (data.readyState === 4 && json !== '') {
             json = JSON.parse(json);
-            module.buildTemplate(root, module, json);
+            _module.buildTemplate(json);
         }
     };
 
@@ -35,7 +37,7 @@ ProjectModule.loadProject = function (root, module, id) {
     };
 
     if (id) {
-        var request = new root.ajax();
+        var request = new core.ajax();
         request.onSuccess = success;
         request.onError = error;
         request.address = '/api/wp-json/wp/v2/project/' + id;
@@ -43,50 +45,55 @@ ProjectModule.loadProject = function (root, module, id) {
     }
 }
 
-ProjectModule.observeViewport = function (root, module) {
+ProjectModule.observeViewport = function () {
+    var _module = this;
     var viewport;
 
     var timeoutFunction = function () {
-        module.resolveViewport(viewport, root, module);
+        _module.resolveViewport(viewport);
     };
 
     window.onresize = function () {
-        viewport = root.getWindowWidth();
+        viewport = core.getWindowWidth();
         clearTimeout(wait);
         var wait = setTimeout(timeoutFunction, 500);
     };
 };
 
-ProjectModule.resolveViewport = function (viewport, root, module) {
+ProjectModule.resolveViewport = function (viewport) {
+    var _module = this;
+
     if (viewport < 624) {
-        module.updateColumns(1, root, module);
+        _module.updateColumns(1);
     } else if (viewport <= 1024) {
-        module.updateColumns(2, root, module);
+        _module.updateColumns(2);
     } else if (viewport > 1024) {
-        module.updateColumns(3, root, module);
+        _module.updateColumns(3);
     }
 };
 
-ProjectModule.updateColumns = function (step, root, module) {
-    var elements = module.el.projects;
+ProjectModule.updateColumns = function (step) {
+    var _module = this;
+    var elements = _module.el.projectColumns;
     var cls, element, index, clearedCls;
 
     for (var i in elements) {
-        if (module.el.projects.hasOwnProperty(i)) {
+        if (_module.el.projectColumns.hasOwnProperty(i)) {
             index = parseInt(i) + 1;
             element = elements[i];
-            root.removeClass(element, module.cls.columnAfter);
+            core.removeClass(element, _module.cls.columnAfter);
 
             if (index === step || index % step === 0) {
                 cls = element.getAttribute('class');
-                element.setAttribute('class', cls + module.cls.columnAfter);
+                element.setAttribute('class', cls + _module.cls.columnAfter);
             }
         }
     }
 };
 
-ProjectModule.bindItemEvents = function (root, module) {
-    var items = module.el.projectItem;
+ProjectModule.bindItemEvents = function () {
+    var _module = this;
+    var items = _module.el.projectItems;
     var id = null, idAttr;
 
     var clickFunction = function (e) {
@@ -94,7 +101,7 @@ ProjectModule.bindItemEvents = function (root, module) {
         idAttr = this.getAttribute('data-id');
 
         if (idAttr) {
-            module.loadProject(root, module, idAttr);
+            _module.loadProject(idAttr);
         } else {
             throw "data-id attribute does not exist";
         }
@@ -105,8 +112,8 @@ ProjectModule.bindItemEvents = function (root, module) {
     }
 }
 
-ProjectModule.init = function (root, module) {
-    module.resolveViewport(module.firstViewport, root, module);
-    module.observeViewport(root, module);
-    module.bindItemEvents(root, module);
-}.call(core, core, ProjectModule)
+ProjectModule.init = function (_module) {
+    _module.resolveViewport(_module.firstViewport, _module);
+    _module.observeViewport();
+    _module.bindItemEvents();
+}.call(core, ProjectModule)
