@@ -1,0 +1,22 @@
+.columns {
+    font-size: 0;
+
+    * {
+        font-size: 1rem;
+    }
+}
+
+.column {
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    padding: 10px;
+
+    @include breakpoint(medium up) {
+        width: 50%;
+    }
+
+    @include breakpoint (large up) {
+        width: 33%;
+    }
+}

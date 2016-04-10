@@ -1,0 +1,17 @@
+.entry {
+    width: 100%;
+    max-width: 560px;
+    display: block;
+    margin: 0 auto;
+
+    $vertical-padding: 150px;
+    $vertical-padding-mobile: $vertical-padding/2;
+
+    padding-top: $vertical-padding-mobile;
+    padding-bottom: $vertical-padding-mobile + 40;
+
+    @include breakpoint (medium) {
+        padding-top: $vertical-padding;
+        padding-bottom: $vertical-padding + 40;
+    }
+}

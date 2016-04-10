@@ -1,0 +1,12 @@
+@mixin inline-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@mixin list-reset {
+    &, & li {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+}
