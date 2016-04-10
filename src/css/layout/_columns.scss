@@ -1,5 +1,5 @@
 .columns {
-    font-size: 0;
+    font-size: 0; //hack for display inline-block
 
     * {
         font-size: 1rem;
@@ -12,11 +12,22 @@
     width: 100%;
     padding: 10px;
 
-    @include breakpoint(medium up) {
-        width: 50%;
+    &-3 {
+        @include breakpoint(medium up) {
+            width: 50%;
+        }
+
+        @include breakpoint (large up) {
+            width: 33%;
+            // max-width: 368.5px;
+        }
     }
 
-    @include breakpoint (large up) {
-        width: 33%;
+    &-2 {
+        width: 100%;
+
+        @include breakpoint(medium up) {
+            width: 50%;
+        }
     }
 }
