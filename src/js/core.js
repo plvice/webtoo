@@ -24,6 +24,9 @@ function App() {
         return obj[Object.keys(obj)[n]];
     }
 
+    /*
+        Deprecated 10.04.16 - do not use this
+    */
     this.removeClass = function (element, cls) {
         var newCls = element.getAttribute('class').replace(cls,'');
         element.setAttribute('class', newCls);
