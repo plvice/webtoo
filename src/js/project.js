@@ -13,7 +13,7 @@ var ProjectModule = core.modules.project = {
 ProjectModule.buildTemplate = function (root, module, json) {
     var html = json.content.rendered;
     // attachments:
-    // /wp-json/wp/v2/media?parent=10&media_type=image
+    // api//wp-json/wp/v2/media?parent=10&media_type=image
     console.log(html);
     console.log(core.templates.project);
 };
@@ -38,7 +38,7 @@ ProjectModule.loadProject = function (root, module, id) {
         var request = new root.ajax();
         request.onSuccess = success;
         request.onError = error;
-        request.address = '/resumeapi/wp-json/wp/v2/project/' + id;
+        request.address = '/api/wp-json/wp/v2/project/' + id;
         request.getData(request.address, request.onSuccess, request.onError);
     }
 }
