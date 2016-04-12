@@ -1,7 +1,7 @@
 .columns {
     font-size: 0; //hack for display inline-block
 
-    * {
+    > * {
         font-size: 1rem;
     }
 }
