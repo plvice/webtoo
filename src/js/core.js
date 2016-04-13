@@ -1,4 +1,6 @@
 function App() {
+    var App = this;
+
     this.createNode = function(nodeName, attributeValues) {
         var that = this;
         var resultNode = document.createElement(nodeName);
@@ -98,6 +100,29 @@ function App() {
 
             xhr.open('GET', url, true);
             xhr.send(null);
+        }
+    }
+
+    this.loader = {
+        init: function () {
+            this.cls = {
+                name: 'loader',
+                visible: 'loader--visible'
+            }
+
+            this.bar = App.createNode('div', {
+                class: this.cls.name
+            });
+
+            document.body.appendChild(this.bar);
+        },
+
+        show: function () {
+            this.bar.classList.add(this.cls.visible);
+        },
+
+        hide: function () {
+            this.bar.classList.remove(this.cls.visible);
         }
     }
 
