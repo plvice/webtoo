@@ -32,10 +32,6 @@ function App() {
         element.setAttribute('class', newCls);
     }
 
-    this.pixelize = function (value) {
-        return value + 'px';
-    }
-
     this.ajax = function () {
         /*
             Create new instance to get new ajax request;
