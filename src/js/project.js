@@ -16,7 +16,6 @@ var ProjectModule = core.modules.project = {
     activeItem: null
 };
 
-// można się zastanowić na usunięciem tego
 ProjectModule.buildTemplate = function (data) {
     var template = core.templates.project;
     var html = template(data);
@@ -47,7 +46,6 @@ ProjectModule.loadItem = function (id) {
         if (data.readyState === 4 && json !== '') {
             json = JSON.parse(json);
 
-            //można tu bezpośrednio wywołać szablon - będzie jedna metoda mniej
             var html = _module.buildTemplate(json);
             _module.insertDropdownContent(html);
 
