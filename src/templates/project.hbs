@@ -4,16 +4,13 @@
             <div class="dropdown__content-excerpt">
                 {{{content}}}
 
-                <figure class="thumb">
-                    <img src="dist/img/error-pages/404.jpg" alt=""/>
-                </figure>
-                <figure class="thumb">
-                    <img src="dist/img/error-pages/500.jpg" alt=""/>
-                </figure>
-                <figure class="thumb">
-                    <img src="dist/img/error-pages/404.jpg" alt=""/>
-                </figure>
-
+                {{#if attachments}}
+                    {{#each attachments}}
+                        <figure class="thumb">
+                            <img src="{{url}}" alt="{{caption}}"/>
+                        </figure>
+                    {{/each}}
+                {{/if}}
             </div>
         </div>
     </div>
