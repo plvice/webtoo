@@ -6,12 +6,14 @@ var YoutubeModule = core.modules.youtube = {
     }
 };
 
-YoutubeModule.bindButtons = function (root, module) {
-    module.el.playButton[0].addEventListener('click', function(e) {
+YoutubeModule.bindButtons = function () {
+    var _module = this;
+
+    _module.el.playButton[0].addEventListener('click', function(e) {
         e.preventDefault();
 
-        if (!root.state.playerAdded) {
-            var destination = module.el.landscape[0];
+        if (!core.state.playerAdded) {
+            var destination = _module.el.landscape[0];
             var videoId = this.getAttribute('data-yt');
 
             var attributes = {
@@ -23,17 +25,17 @@ YoutubeModule.bindButtons = function (root, module) {
                 allowfullscreen: ''
             };
 
-            module.insertPlayer(root, attributes, destination);
-            root.state.playerAdded = true;
+            _module.insertPlayer(attributes, destination);
+            core.state.playerAdded = true;
         }
     });
 };
 
-YoutubeModule.insertPlayer = function (root, attributes, destination) {
-    var yt = root.createNode('iframe', attributes);
+YoutubeModule.insertPlayer = function (attributes, destination) {
+    var yt = core.createNode('iframe', attributes);
     destination.appendChild(yt);
 };
 
-YoutubeModule.init = function (root, module) {
-    module.bindButtons(root, module);
-}.call(core, core, YoutubeModule);
+YoutubeModule.init = function (_module) {
+    _module.bindButtons();
+}.call(core, YoutubeModule);

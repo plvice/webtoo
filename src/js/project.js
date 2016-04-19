@@ -29,9 +29,9 @@ ProjectModule.insertDropdownContent = function (html) {
 
     //add dropdown: only if not exists for this project
     if (!dropdown.length) {
-        //można wykorzystać metodę z core.js
-        var node = document.createElement('div');
-        node.setAttribute('class', 'dropdown');
+        var node = core.createNode('div', {
+            class: _module.cls.dropdown
+        });
         node.innerHTML = html;
         parent.appendChild(node);
     }
@@ -49,6 +49,7 @@ ProjectModule.loadItem = function (id) {
             var html = _module.buildTemplate(json);
             _module.insertDropdownContent(html);
 
+            //we use timeout just for better visual effect
             var wait = function () {
                 _module.showDropdown(_module.activeItem);
                 core.loader.hide();
@@ -90,6 +91,7 @@ ProjectModule.showDropdown = function (item) {
         //remove current class from columns
         for(var i = 0; i < columns.length; i++) {
             column = columns[i];
+
             if (column.classList.contains(currentCls)) {
                 column.classList.remove(currentCls);
             }
