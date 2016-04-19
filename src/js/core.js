@@ -47,11 +47,6 @@ function App() {
         this.onError = null;
 
         this.getData = function (url, callback, errorCallback) {
-            // http://code.tutsplus.com/articles/how-to-make-ajax-requests-with-raw-javascript--net-4855
-            // load('test.txt', function(xhr) {
-            //     document.getElementById('container').innerHTML = xhr.responseText;
-            // });
-
             var xhr, isError = false;
 
             if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
