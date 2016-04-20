@@ -11,7 +11,7 @@ var ProjectModule = core.modules.project = {
         dropdown: 'dropdown',
         dropdownContainer: 'dropdown__container'
     },
-    dataApi: '/api/wp-json/resume/v1/project/',
+    dataApi: 'api/wp-json/resume/v1/project/',
     activeDropdown: null,
     activeItem: null
 };
