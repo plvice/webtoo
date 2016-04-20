@@ -11,7 +11,7 @@ var ProjectModule = core.modules.project = {
         dropdown: 'dropdown',
         dropdownContainer: 'dropdown__container'
     },
-    dataApi: '/api/wp-json/resume/v1/project/',
+    dataApi: 'api/wp-json/resume/v1/project/',
     activeDropdown: null,
     activeItem: null
 };
@@ -135,10 +135,12 @@ ProjectModule.setDropdownHeight = function (parent) {
     //if we have the dropdown already opened - reset its height
     if (activeDropdown !== null) {
         activeDropdown.style.maxHeight = '';
+        activeDropdown.style.height = '';
     }
 
     //set the max-height of dropdown
     dropdown.style.maxHeight = height;
+    dropdown.style.height = height;
 
     //share the opened dropdown with other methods
     _module.activeDropdown = dropdown;

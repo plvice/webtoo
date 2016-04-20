@@ -100,8 +100,8 @@ add_action( 'init', 'wpdocs_codex_project_init' );
         $post_attachments = json_decode($post_attachments[0])->attachments;
 
      	foreach ($post_attachments as $key => $value) {
-     		$project_attachments[$key]['url'] = wp_get_attachment_image_url($value->id, 'thumbnail');
-     		$project_attachments[$key]['caption'] = $value->fields->caption;
+     		$project_attachments[$key]['url'] = wp_get_attachment_image_url($value->id, 'large');
+     		$project_attachments[$key]['siteUrl'] = $value->fields->caption;
      	}
     } else {
         $project_attachments = false;

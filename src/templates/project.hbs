@@ -1,15 +1,23 @@
     <div class="dropdown__container">
         <div class="dropdown__content row">
             <h3>{{title}}</h3>
-            <!-- {{#if attachments}}
-                {{#each attachments}}
-                    <figure class="thumb">
-                        <img src="{{url}}" alt="{{caption}}"/>
-                    </figure>
-                {{/each}}
-            {{/if}} -->
             <div class="dropdown__content-excerpt">
                 {{{content}}}
             </div>
         </div>
+        {{#if attachments}}
+            <div class="dropdown__images">
+                {{#each attachments}}
+                    <figure class="thumb">
+                        {{#if siteUrl !== ''}}
+                            <a href="{{siteUrl}}" title="View online">
+                        {{/if}}
+                                <img src="{{url}}" alt=""/>
+                        {{#if siteUrl !== ''}}
+                            </a>
+                        {{/if}}
+                    </figure>
+                {{/each}}
+            </div>
+        {{/if}}
     </div>
