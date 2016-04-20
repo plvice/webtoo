@@ -135,10 +135,12 @@ ProjectModule.setDropdownHeight = function (parent) {
     //if we have the dropdown already opened - reset its height
     if (activeDropdown !== null) {
         activeDropdown.style.maxHeight = '';
+        activeDropdown.style.height = '';
     }
 
     //set the max-height of dropdown
     dropdown.style.maxHeight = height;
+    dropdown.style.height = height;
 
     //share the opened dropdown with other methods
     _module.activeDropdown = dropdown;
