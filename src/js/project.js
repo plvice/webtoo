@@ -3,13 +3,15 @@ var ProjectModule = core.modules.project = {
     el: {
         projectsContainer: document.getElementById('projects'),
         projectColumns: document.querySelectorAll('.projects .column'),
-        projectItems: document.getElementsByClassName('project')
+        projectItems: document.getElementsByClassName('project'),
+        projectThumbs: document.getElementsByClassName('project__thumb')
     },
     cls: {
         columnAfter: 'aftercontent',
         columnExpanded: 'column--expanded',
         dropdown: 'dropdown',
-        dropdownContainer: 'dropdown__container'
+        dropdownContainer: 'dropdown__container',
+        thumbLoading: 'project__thumb--loading'
     },
     dataApi: 'api/wp-json/resume/v1/project/',
     activeDropdown: null,
@@ -180,7 +182,30 @@ ProjectModule.bindItemEvents = function () {
     }
 }
 
+ProjectModule.layLogos = function () {
+    var _module = this;
+    var thumbs = _module.el.projectThumbs;
+    var loading = _module.cls.thumbLoading;
+    var pos, id, thumb; //helpers to use inside a loop
+    var step = 170; //fixed width of each logo in pixels.
+
+    for (var i = 0; i < thumbs.length; i++) {
+        thumb = thumbs[i];
+        id = thumb.getAttribute('data-sprite');
+        pos = (id * step).toString();
+        thumb.style.backgroundPosition = '-' + pos.pixelize() + ' ' + ('0').pixelize();
+        thumb.classList.remove(loading);
+    }
+}
+
 ProjectModule.init = function (_module) {
     this.loader.init();
     _module.bindItemEvents();
+
+    var tmt = function () {
+        _module.layLogos();
+    };
+
+    setTimeout(tmt, 1500);
+
 }.call(core, ProjectModule)
