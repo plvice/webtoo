@@ -1,3 +1,5 @@
+$project-bg: lighten($body, 10%);
+
 .projects {
     padding: 40px 10px;
 }
@@ -8,10 +10,19 @@
     z-index: 2;
     outline: 0;
     transition: outline 0.1s ease-out;
+    background: $project-bg;
 
     .column--expanded & {
         border-bottom: 5px solid $primary;
     }
+
+    // &:hover {
+    //     img {
+    //         @include breakpoint(large up) {
+    //             filter: grayscale(100%) brightness(150%) contrast(150%);
+    //         }
+    //     }
+    // }
 }
 
 .project__info {
@@ -24,7 +35,7 @@
     align-items: flex-end;
     flex-direction: row;
 
-    background: rgba($primary, 0.4);
+    background: rgba($primary, 0.5);
 
     transform: scale(0);
     transition: transform 0.2s ease-out;
@@ -47,23 +58,106 @@
     }
 }
 
-.label {
-    display: inline-block;
-    padding: 8px 12px;
-    background: $primary;
-    color: $white;
-    font-weight: 400;
-    font-size: 0.9em;
-
-    &--red {
-        background: $red;
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        transform-origin: left center;
     }
 
-    &--blue {
-        background: $blue;
+    50% {
+        transform: rotate(360deg);
+        transform-origin: left center;
     }
 
-    &--black {
-        background: $black;
+    100% {
+        transform: rotate(0deg);
+        transform-origin: left center;
     }
 }
+
+.project__thumb {
+    $step: 170px;
+
+    width: $step;
+    height: 70px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    background-image: url(../img/logos/sprite.png);
+    background-repeat: no-repeat;
+    background-position: $step 0;
+
+    .projects .column:nth-child(2n) & {
+        background-position: -($step*9) 0;
+    }
+
+    @include breakpoint(large up) {
+        transition: background 1s linear;
+
+        .project:hover & {
+            filter: grayscale(100%) brightness(150%) contrast(150%);
+
+            &:before, &:after {
+                display: none;
+            }
+        }
+    }
+
+    &--loading {
+        &:after {
+            $circle-size: 2em;
+            width: $circle-size;
+            height: $circle-size;
+            border: 3px solid $primary;
+            border-radius: 100%;
+
+            content: '';
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        &:before {
+            width: 1.8em;
+            height: 1.8em;
+            background: $project-bg;
+
+            content: '';
+            display: block;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            z-index: 2;
+
+            animation-name: loading;
+            animation-duration: 2s;
+            animation-timing-function: ease;
+            animation-iteration-count: infinite;
+        }
+    }
+}
+
+// .label {
+//     display: inline-block;
+//     padding: 8px 12px;
+//     background: $primary;
+//     color: $white;
+//     font-weight: 400;
+//     font-size: 0.9em;
+//
+//     &--red {
+//         background: $red;
+//     }
+//
+//     &--blue {
+//         background: $blue;
+//     }
+//
+//     &--black {
+//         background: $black;
+//     }
+// }
