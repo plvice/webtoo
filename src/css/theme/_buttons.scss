@@ -61,20 +61,30 @@
 }
 
 .circle {
-    $circle-button-size: 200px;
+    $circle-button-size: 180px;
+
     width: $circle-button-size;
     height: $circle-button-size;
     display: inline-block;
     vertical-align: middle;
+    transition: all 0.2s ease-out;
 
     background: $primary;
+    border: 6px solid $body;
     border-radius: 100%;
+
     color: $white;
-    line-height: $circle-button-size;
+    font-weight: 700;
+    font-size: 0.85em;
+    line-height: $circle-button-size - 5;
     text-align: center;
-    transition: all 0.15s ease-out;
+    text-transform: uppercase;
 
     &:hover {
-        box-shadow: 0px 0px 30px darken($primary, 7%) inset;
+        border-color: lighten($primary, 15%);
+    }
+
+    &--secondary {
+        background: $dark;
     }
 }
