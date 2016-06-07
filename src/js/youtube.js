@@ -8,27 +8,30 @@ var YoutubeModule = core.modules.youtube = {
 
 YoutubeModule.bindButtons = function () {
     var _module = this;
+    var button = _module.el.playButton[0];
+    
+    if (button) {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
 
-    _module.el.playButton[0].addEventListener('click', function(e) {
-        e.preventDefault();
+            if (!core.state.playerAdded) {
+                var destination = _module.el.landscape[0];
+                var videoId = this.getAttribute('data-yt');
 
-        if (!core.state.playerAdded) {
-            var destination = _module.el.landscape[0];
-            var videoId = this.getAttribute('data-yt');
+                var attributes = {
+                    class: 'landscape__video',
+                    src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0',
+                    width: 500,
+                    height: 500,
+                    frameborder: 0,
+                    allowfullscreen: ''
+                };
 
-            var attributes = {
-                class: 'landscape__video',
-                src: 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0',
-                width: 500,
-                height: 500,
-                frameborder: 0,
-                allowfullscreen: ''
-            };
-
-            _module.insertPlayer(attributes, destination);
-            core.state.playerAdded = true;
-        }
-    });
+                _module.insertPlayer(attributes, destination);
+                core.state.playerAdded = true;
+            }
+        });
+    }
 };
 
 YoutubeModule.insertPlayer = function (attributes, destination) {

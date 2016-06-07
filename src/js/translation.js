@@ -8,11 +8,14 @@ var TranslationModule = core.modules.translation = {
 
 TranslationModule.bindTranslation = function () {
     var _module = this;
+    var button = _module.el.button;
 
-    _module.el.button.addEventListener('click', function(e) {
-        e.preventDefault();
-        _module.el.audio.play();
-    });
+    if (button) {
+        _module.el.button.addEventListener('click', function(e) {
+            e.preventDefault();
+            _module.el.audio.play();
+        });
+    }
 };
 
 TranslationModule.init = function (_module) {
