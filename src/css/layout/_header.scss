@@ -33,14 +33,14 @@
 
         li {
             @include inline-middle;
-            padding: 0 10px;
+            padding: 0 5px;
         }
 
         a {
             display: block;
             position: relative;
             overflow: hidden;
-            padding: 16px 27px;
+            padding: 16px 20px;
 
             color: $dark-lighten;
             font-weight: 700;
