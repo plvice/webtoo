@@ -1,5 +1,22 @@
 $project-bg: lighten($body, 10%);
 
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+        transform-origin: left center;
+    }
+
+    50% {
+        transform: rotate(360deg);
+        transform-origin: left center;
+    }
+
+    100% {
+        transform: rotate(0deg);
+        transform-origin: left center;
+    }
+}
+
 .projects {
     padding: 40px 10px;
 }
@@ -55,23 +72,6 @@ $project-bg: lighten($body, 10%);
         position: absolute;
         top: 0;
         right: 0;
-    }
-}
-
-@keyframes loading {
-    0% {
-        transform: rotate(0deg);
-        transform-origin: left center;
-    }
-
-    50% {
-        transform: rotate(360deg);
-        transform-origin: left center;
-    }
-
-    100% {
-        transform: rotate(0deg);
-        transform-origin: left center;
     }
 }
 
