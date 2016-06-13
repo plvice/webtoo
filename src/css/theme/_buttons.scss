@@ -88,12 +88,15 @@
     border: 6px solid $body;
     border-radius: 100%;
 
-    color: $white;
     font-weight: 700;
-    font-size: 0.85em;
+    font-size: 1em;
     line-height: $circle-button-size - 5;
     text-align: center;
     text-transform: uppercase;
+
+    &, &:visited {
+        color: $white;
+    }
 
     &:hover {
         border-color: lighten($primary, 15%);
