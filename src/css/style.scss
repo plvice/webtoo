@@ -5,7 +5,7 @@
 @import 'utilities/mixins';
 
 @import 'theme/colors',
-        'theme/fonts',
+        'theme/typography',
         'theme/headings',
         'theme/icons',
         'theme/buttons',
@@ -13,9 +13,9 @@
         'theme/separators';
 
 @import 'layout/root',
-        'layout/grid',
-        'layout/header',
+        'layout/rows',
         'layout/columns',
+        'layout/header',
         'layout/inline';
 
 @import 'blocks/entry',
