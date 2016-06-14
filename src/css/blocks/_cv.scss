@@ -104,6 +104,11 @@
         padding: 10px 30px;
         border: 2px solid $border;
     }
+
+    &-clause {
+        text-align: left;
+        font-size: 0.75em;
+    }
 }
 
 a.twitter {
