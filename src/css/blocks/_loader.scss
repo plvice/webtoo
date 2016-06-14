@@ -2,26 +2,25 @@ $loader-height: 6px;
 
 @keyframes loader1 {
     0% {
-        left: 0;
+        left: -100%;
     }
 
     50% {
-        left: 150%;
+        left: 100%;
     }
 
     100% {
-        left: 0;
-        width: 50%;
+        left: 100%;
     }
 }
 
 @keyframes loader2 {
     0% {
-        left: 100%;
+        left: -100%;
     }
 
     50% {
-        left: -50%;
+        left: 100%;
     }
 
     100% {
@@ -37,32 +36,33 @@ $loader-height: 6px;
     top: 0;
     left: 0;
     z-index: 999;
-    
+
     &--visible {
         &:before {
-            width: 50%;
+            width: 100%;
             height: $loader-height;
             position: fixed;
-            left: 0;
+            left: -100%;
             top: 0;
             content: '';
             display: block;
 
             background: $primary;
-            animation: loader1 2.5s infinite;
+            animation: loader1 3s infinite;
         }
 
         &:after {
-            width: 50%;
+            width: 100%;
             height: $loader-height;
             position: fixed;
-            left: 100%;
+            left: -100%;
             top: 0;
             content: '';
             display: block;
 
             background: $primary;
-            animation: loader2 2.5s infinite;
+            animation: loader2 3s infinite;
+            animation-delay: 1.5s;
         }
     }
 
