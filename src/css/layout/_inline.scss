@@ -1,0 +1,8 @@
+.inline {
+    display: inline-block;
+    vertical-align: top;
+
+    &--middle {
+        vertical-align: middle;
+    }
+}
