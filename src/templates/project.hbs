@@ -9,13 +9,7 @@
             <div class="dropdown__images">
                 {{#each attachments}}
                     <figure class="thumb">
-                        {{#if "siteUrl != ''"}}
-                            <a href="{{siteUrl}}" title="View online">
-                        {{/if}}
-                                <img src="{{url}}" alt=""/>
-                        {{#if "siteUrl != ''"}}
-                            </a>
-                        {{/if}}
+                        <img src="{{url}}" alt=""/>
                     </figure>
                 {{/each}}
             </div>
