@@ -114,7 +114,6 @@ gulp.task('static', function(cb) {
 });
 
 gulp.task('dist', function (cb) {
-    console.log('running...');
     gulp.start('compileCss');
     gulp.start('compileJs');
     gulp.start('templates');
