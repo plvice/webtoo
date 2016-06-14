@@ -5,7 +5,7 @@
  * @version 1.0
  */
 /*
-Plugin Name: Webtoo resume
+Plugin Name: Webtoo
 Plugin URI: -
 
 Description: Plugin adds some features to "Webtoo resume".
@@ -13,7 +13,7 @@ The general addictions are:
 - REST-API support with custom end-points
 - new post type: "Project"
 
-Author: Peter Baluk
+Author: Piotr Baluk
 Version: 1.0
 Author URI: https://twitter.com/mtb_rocks
 */
@@ -107,7 +107,6 @@ add_action( 'init', 'wpdocs_codex_project_init' );
         $project_attachments = false;
     }
 
-
  	$post = $posts[0];
 
  	$project['title'] = $post->post_title;
@@ -119,7 +118,7 @@ add_action( 'init', 'wpdocs_codex_project_init' );
      return $project;
  }
 
- add_action( 'rest_api_init', function () {
+ add_action('rest_api_init', function () {
      register_rest_route( 'resume/v1', '/project/(?P<id>\d+)', array(
          'methods' => 'GET',
          'callback' => 'resume_get_project',
