@@ -12,7 +12,10 @@
   "homepage": "index.html",
   "devDependencies": {
     "normalize-css": "normalize.css#^4.0.0",
-    "foundation-sites": "6.2.0",
+    "foundation-sites": "6.2.3",
     "handlebars": "2.0.0"
+  },
+  "resolutions": {
+    "what-input": "~2.0.0"
   }
 }
