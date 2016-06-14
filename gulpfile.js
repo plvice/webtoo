@@ -18,6 +18,8 @@ var handlebars = require('gulp-handlebars');
 var wrap = require('gulp-wrap');
 var declare = require('gulp-declare');
 
+var ncu = require('npm-check-updates');
+
 var path = {
     css: {
         source: './src/css/**/*.scss',
@@ -137,5 +139,18 @@ gulp.task('watch', function (cb) {
     });
     watch(path.static.source, function() {
         gulp.start('static');
+    });
+});
+
+gulp.task('checkupdates', function () {
+    ncu.run({
+        // Always specify the path to the package file
+        packageFile: 'package.json',
+        // Any command-line option can be specified here.
+        // These are set by default:
+        silent: true,
+        jsonUpgraded: true
+    }).then(function(upgraded) {
+        console.log('dependencies to upgrade:', upgraded);
     });
 });
