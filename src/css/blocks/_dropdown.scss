@@ -112,12 +112,14 @@
     margin: 0;
     overflow: hidden;
     position: relative;
+    text-align: center;
 
     @include breakpoint (medium up) {
         height: 70vh;
     }
 
     img {
+        display: inline-block;
         height: 50vh;
         width: auto;
         max-width: 800%;
